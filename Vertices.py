@@ -4,8 +4,7 @@ Vertices
 Description:
 """
 # Import and Initalize Pygame
-import pygame
-import sys
+import pygame, sys
 import math
 pygame.init()
 
