@@ -34,9 +34,18 @@ cameraRotationY = 0
 xRotation = 1
 zRotation = 1
 
-def Projection(x, y, z):
+# Drawing Variables
+drawX = 0
+drawY = 0
 
-    position = (x * (focalLength / z), y * (focalLength / z))
+def Projection(x, y, z):
+    
+    global drawX
+    global drawY
+    
+    drawX = x * (focalLength / z)
+    drawY = y * (focalLength / z)
+    
     size = abs(focalLength / z)
 
 def Create_Vertice(x, y, z):
@@ -51,7 +60,7 @@ def Create_Vertice(x, y, z):
     verticeTransformZ = z
     
     # Drawing
-    pygame.draw.circle(win, (0, 0, 0), position, size)
+    pygame.draw.circle(win, (0, 0, 0), (verticeTransformX, verticeTransformY), size)
 
 def RotationMatrix(x, z, direction):
     
@@ -68,14 +77,16 @@ def UpdateFrames():
     RotationMatrix((verticeTransformX - cameraTransformX), (verticeTransformZ - cameraTransformZ), (0 - cameraRotationY))
     Projection(xRotation, (verticeTransformY - cameraTransformY), zRotation)
     
-while True:
+def Window():
     
-    for ev in pygame.event.get():
-        
-        if ev.type == pygame.QUIT:
+    while True:
+    
+        for ev in pygame.event.get():
             
-            sys.exit()
-        
-# Called Every Frame
-UpdateFrames()
-pygame.display.flip()
+            if ev.type == pygame.QUIT:
+                
+                sys.exit()
+            
+        # Called Every Frame
+        UpdateFrames()
+        pygame.display.flip()
